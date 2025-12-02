@@ -2,19 +2,26 @@ import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { HiMenuAlt3, HiX } from "react-icons/hi"; // Hamburger Icons
-import { FiMoon, FiSun } from "react-icons/fi"; // Theme Icons
-import React from "react";
+import { HiMenuAlt3, HiX } from "react-icons/hi";
+import { FiMoon, FiSun } from "react-icons/fi";
 
 const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Projects", path: "/projects" },
-    { name: "About", path: "/about" }, // Future use
+    { name: "About", path: "/about" },
     { name: "Contact", path: "/contact" },
   ];
 
@@ -27,7 +34,7 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        {/* logo  */}
+        {/* 1. Logo */}
         <Link
           to="/"
           className="text-2xl font-heading font-bold text-primary cursor-pointer"
@@ -52,6 +59,8 @@ const Navbar = () => {
               {link.name}
             </NavLink>
           ))}
+
+          {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 text-dark dark:text-light transition-all hover:scale-110"
@@ -74,7 +83,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* 4. Mobile Menu Dropdown (AnimatePresence for smooth exit) */}
+      {/* 4. Mobile Menu Dropdown  */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
