@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+/* 2. Configure Theme (Colors & Fonts) */
+@theme {
+  /* Design System */
+  --color-primary: #6366f1; /* Indigo */
+  --color-secondary: #8b5cf6; /* Violet */
+  --color-accent: #14b8a6; /* Teal */
+  --color-dark: #0f172a; /* Navy Background */
+  --color-light: #f8fafc; /* White Text */
+  --color-gray: #64748b; /* Cool Gray */
+
+  /* Fonts */
+  --font-sans: "Inter", sans-serif;
+  --font-heading: "Poppins", sans-serif;
+}
+
+/* 3. Base Styles */
+@layer base {
+  body {
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    font-family: var(--font-sans);
+  }
+
+  /* Dark Mode support manually handle karne ki zaroorat nahi, 
+     hum bad mein class strategy use karenge agar zaroorat padi, 
+     filhal ye variables global hain. */
+}
+
+/* Dark Mode Background toggle logic hum JS se handle karenge */
+.dark body {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+}
